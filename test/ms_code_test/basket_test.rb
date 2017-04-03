@@ -45,9 +45,20 @@ module MsCodeTest
       assert_equal [product_one], basket.products
     end
 
+    def test_add_product_with_product
+      basket.add_product product_one
+      assert_equal [product_one], basket.products
+    end
+
     def test_total
       test_add_product
       assert_equal 3, basket.total
+    end
+
+    def test_total_with_fraction_of_pence
+      Basket.stub_any_instance(:total_for_products, 1.125) do
+        assert_equal 1.12, basket.total
+      end
     end
 
     def basket

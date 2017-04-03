@@ -1,3 +1,4 @@
+require 'bigdecimal'
 module MsCodeTest
   class Basket
     attr_reader :product_types, :delivery_calculator, :special_offer
@@ -17,7 +18,7 @@ module MsCodeTest
     end
 
     def add_product(product_code)
-      products << catalogue[product_code]
+      products << (product_code.kind_of?(Product) ? product_code : catalogue[product_code])
     end
 
     def total_for(*product_codes)
@@ -32,7 +33,7 @@ module MsCodeTest
     end
 
     def total
-      total_for_products products
+      BigDecimal.new((total_for_products(products) * 100).floor) * 0.01
     end
   end
 end

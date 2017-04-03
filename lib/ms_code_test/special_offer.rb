@@ -1,5 +1,3 @@
-
-
 module MsCodeTest
   class SpecialOffer
     attr_reader :type, :args
