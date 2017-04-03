@@ -1,10 +1,11 @@
 module MsCodeTest
   class Basket
-    attr_reader :product_types, :delivery_calculator
+    attr_reader :product_types, :delivery_calculator, :special_offer
 
-    def initialize(product_types: [], delivery_calculator: nil)
+    def initialize(product_types: [], delivery_calculator: nil, special_offer: nil)
       @product_types = product_types
       @delivery_calculator = delivery_calculator
+      @special_offer = special_offer
     end
 
     def catalogue
@@ -25,6 +26,7 @@ module MsCodeTest
 
     def total_for_products(products = [])
       total = products.collect(&:price).inject(&:+)
+      total = total - special_offer.reduction(*products) if special_offer
       return total unless delivery_calculator
       total + delivery_calculator.cost_for(total)
     end
