@@ -5,5 +5,5 @@ require_relative "ms_code_test/basket"
 require_relative "ms_code_test/special_offer"
 
 module MsCodeTest
-  # Your code goes here...
+  # Namespace only
 end

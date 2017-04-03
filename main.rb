@@ -1,4 +1,4 @@
-require_relative 'ms_code_test'
+require_relative 'lib/ms_code_test'
 
 module MsCodeTest
   jeans = Product.new(name: 'Jeans', code: 'J01', price: 32.95)

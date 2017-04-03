@@ -10,7 +10,7 @@ module MsCodeTest
     end
 
     def catalogue
-      @catalogue ||= product_types.inject({}){|h,p| h[p.code] = p; h}
+      @catalogue ||= product_types.inject({}){|h, product| h[product.code] = product; h}
     end
 
     def products
@@ -33,6 +33,9 @@ module MsCodeTest
     end
 
     def total
+      # Manipulation to ensure results are displayed as valid prices
+      # TODO - Determine if inputs can be decimal inputs and output currency formatted
+      #        easily via methods available in environment (as they would be within Rails)
       BigDecimal.new((total_for_products(products) * 100).floor) * 0.01
     end
   end
