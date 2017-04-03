@@ -4,9 +4,6 @@ module MsCodeTest
   class BasketTest < Minitest::Test
 
     def test_total_for
-      basket = Basket.new(
-        product_types: [product_one, product_two]
-      )
       assert_equal (3 + 30), basket.total_for('X01', 'Y01')
       assert_equal (30 + 30), basket.total_for('Y01', 'Y01')
       assert_equal (3), basket.total_for('X01')
@@ -20,6 +17,20 @@ module MsCodeTest
       assert_equal (3 + 30 + 2), basket.total_for('X01', 'Y01')
       assert_equal (30 + 30), basket.total_for('Y01', 'Y01')
       assert_equal (3 + 7), basket.total_for('X01')
+    end
+
+    def test_add_product
+      basket.add_product 'X01'
+      assert_equal [product_one], basket.products
+    end
+
+    def test_total
+      test_add_product
+      assert_equal 3, basket.total
+    end
+
+    def basket
+      @basket ||= Basket.new( product_types: [product_one, product_two] )
     end
 
     def delivery_calculator

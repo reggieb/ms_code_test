@@ -7,15 +7,30 @@ module MsCodeTest
       @delivery_calculator = delivery_calculator
     end
 
+    def catalogue
+      @catalogue ||= product_types.inject({}){|h,p| h[p.code] = p; h}
+    end
+
+    def products
+      @products ||= []
+    end
+
+    def add_product(product_code)
+      products << catalogue[product_code]
+    end
+
     def total_for(*product_codes)
-      products = product_codes.collect{|c| catalogue[c]}
+      total_for_products product_codes.collect{|c| catalogue[c]}
+    end
+
+    def total_for_products(products = [])
       total = products.collect(&:price).inject(&:+)
       return total unless delivery_calculator
       total + delivery_calculator.cost_for(total)
     end
 
-    def catalogue
-      @catalogue ||= product_types.inject({}){|h,p| h[p.code] = p; h}
+    def total
+      total_for_products products
     end
   end
 end
