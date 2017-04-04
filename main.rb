@@ -15,6 +15,10 @@ module MsCodeTest
     }
   )
 
+  def self.number_to_currency(number)
+    "£#{"%0.2f" % number}"
+  end
+
   basket = Basket.new(
     product_types: [jeans, blouse, socks],
     delivery_calculator: delivery_calculator,
@@ -24,7 +28,7 @@ module MsCodeTest
   basket.add_product socks
   basket.add_product blouse
 
-  puts "£#{basket.total.to_f} should equal £37.85"
+  puts "#{number_to_currency basket.total} should equal £37.85"
 
   basket = Basket.new(
     product_types: [jeans, blouse, socks],
@@ -35,7 +39,7 @@ module MsCodeTest
   basket.add_product jeans
   basket.add_product jeans
 
-  puts "£#{basket.total.to_f} should equal £54.37"
+  puts "#{number_to_currency basket.total} should equal £54.37"
 
   basket = Basket.new(
     product_types: [jeans, blouse, socks],
@@ -46,7 +50,7 @@ module MsCodeTest
   basket.add_product jeans
   basket.add_product blouse
 
-  puts "£#{basket.total.to_f} should equal £60.85"
+  puts "#{number_to_currency basket.total} should equal £60.85"
 
   basket = Basket.new(
     product_types: [jeans, blouse, socks],
@@ -60,5 +64,5 @@ module MsCodeTest
   basket.add_product jeans
   basket.add_product jeans
 
-  puts "£#{basket.total.to_f} should equal £98.27"
+  puts "#{number_to_currency basket.total} should equal £98.27"
 end
